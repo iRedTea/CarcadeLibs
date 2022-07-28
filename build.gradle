@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+}
+
+group = 'me.redtea'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+
+    implementation 'com.google.inject:guice:5.1.0'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'me.mattstudios.utils:matt-framework:1.4.6'
+    implementation 'dev.triumphteam:triumph-gui:3.1.2'
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+        options.encoding = "UTF-8"
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+tasks {
+    compileJava {
+        options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
+    }
+    processResources {
+        filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
+    }
+    jar {
+        archiveFileName.set("${rootProject.name}-no-shade-${rootProject.version}.${archiveExtension.getOrElse("jar")}") //тут у нас билдится без релокации нужный пакетов через shadow
+    }
+    shadowJar {
+        archiveFileName.set("${rootProject.name}.${archiveExtension.getOrElse("jar")}") //тут билдится уже со всеми указанными артефактами которые идут как API
+    }
+    build {
+        dependsOn(shadowJar)
+    }
+
+    artifacts {
+        archives(shadowJar)
+    }
+}
+
