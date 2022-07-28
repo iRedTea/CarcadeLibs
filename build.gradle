@@ -40,14 +40,13 @@ java {
 
 
 
-
-
-
-
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            groupId = 'com.github.itzRedTea'
+            artifactId = 'me.redtea.carcadelibs'
+            version = '1.0.0'
         }
     }
 }
@@ -66,3 +65,4 @@ processResources {
         expand props
     }
 }
+
