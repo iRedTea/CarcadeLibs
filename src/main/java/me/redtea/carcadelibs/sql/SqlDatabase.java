@@ -16,6 +16,8 @@ public interface SqlDatabase {
 
     <V> V executeQuery(boolean async, @NonNull String sql, @NonNull ResponseHandler<ResultSet, V> handler, Object...objects);
 
+    ResultSet executeQuery(boolean async, @NonNull String sql, Object... objects);
+
     Connection getConnection();
 
     void closeConnection() throws SQLException;

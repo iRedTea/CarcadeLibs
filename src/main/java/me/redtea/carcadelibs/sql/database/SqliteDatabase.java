@@ -29,19 +29,19 @@ public abstract class SqliteDatabase implements SqlDatabase {
     }
 
     @Override
-    public int execute(boolean async, @NonNull String sql, Object... objects) {
+    public <V> V executeQuery(boolean async, @NonNull String sql, @NonNull ResponseHandler<ResultSet, V> handler, Object... objects) {
         return handle(async, () -> {
             try (SqlStatement statement = new SqlStatement(getConnection(), sql, objects)) {
-                return statement.execute();
+                return handler.handleResponse(statement.executeQuery());
             }
         });
     }
 
     @Override
-    public <V> V executeQuery(boolean async, @NonNull String sql, @NonNull ResponseHandler<ResultSet, V> handler, Object... objects) {
+    public int execute(boolean async, @NonNull String sql, Object... objects) {
         return handle(async, () -> {
             try (SqlStatement statement = new SqlStatement(getConnection(), sql, objects)) {
-                return handler.handleResponse(statement.executeQuery());
+                return statement.execute();
             }
         });
     }

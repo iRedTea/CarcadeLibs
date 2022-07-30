@@ -46,6 +46,15 @@ public abstract class MysqlDatabase implements SqlDatabase {
     }
 
     @Override
+    public ResultSet executeQuery(boolean async, @NonNull String sql, Object... objects) {
+        return handle(async, () -> {
+            try (SqlStatement statement = new SqlStatement(getConnection(), sql, objects)) {
+                return statement.executeQuery();
+            }
+        });
+    }
+
+    @Override
     public Connection getConnection() {
         try {
             return this.refreshConnection();
