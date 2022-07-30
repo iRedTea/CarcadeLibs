@@ -13,6 +13,7 @@ public interface SqlDatabase {
             .setDaemon(true)
             .build());
     int execute(boolean async, @NonNull String sql, Object...objects);
+
     <V> V executeQuery(boolean async, @NonNull String sql, @NonNull ResponseHandler<ResultSet, V> handler, Object...objects);
 
     Connection getConnection();
@@ -33,15 +34,6 @@ public interface SqlDatabase {
             } catch (Exception e) {
                 throw new RuntimeException("Failed to execute sync query", e);
             }
-        }
-    }
-
-    default ResultSet query(String sql, Object... objects) {
-        try {
-            SqlStatement statement = new SqlStatement(getConnection(), sql, objects);
-            return statement.executeQuery();
-        } catch (SQLException e) {
-            throw new RuntimeException("[SQL] Error executing query to database", e);
         }
     }
 }
