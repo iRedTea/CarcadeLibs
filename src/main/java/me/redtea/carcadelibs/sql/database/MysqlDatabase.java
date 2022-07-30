@@ -13,7 +13,7 @@ public abstract class MysqlDatabase implements SqlDatabase {
     private final MysqlDataSource dataSource = new MysqlDataSource();
     private Connection connection;
 
-    @Builder(buildMethodName = "create")
+    //@Builder(buildMethodName = "create")
     public MysqlDatabase(String host, int port, String user, String password, String database) throws SQLException {
         this.dataSource.setServerName(host);
         this.dataSource.setPort(port);

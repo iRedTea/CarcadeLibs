@@ -14,7 +14,7 @@ public abstract class SqliteDatabase implements SqlDatabase {
     private final SQLiteDataSource dataSource = new SQLiteDataSource();
     private Connection connection;
 
-    @Builder(buildMethodName = "create")
+    //@Builder(buildMethodName = "create")
     public SqliteDatabase(File databaseFile, String database) throws SQLException {
         this("jdbc:sqlite:" + databaseFile, database);
         createTables();
