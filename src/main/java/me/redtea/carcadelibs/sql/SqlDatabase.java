@@ -35,4 +35,13 @@ public interface SqlDatabase {
             }
         }
     }
+
+    default ResultSet query(String sql, Object... objects) {
+        try {
+            SqlStatement statement = new SqlStatement(getConnection(), sql, objects);
+            return statement.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException("[SQL] Error executing query to database", e);
+        }
+    }
 }
