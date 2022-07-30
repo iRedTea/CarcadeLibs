@@ -8,6 +8,7 @@ import org.sqlite.*;
 
 import java.io.*;
 import java.sql.*;
+import java.util.concurrent.Callable;
 
 public abstract class SqliteDatabase implements SqlDatabase {
 
@@ -38,12 +39,26 @@ public abstract class SqliteDatabase implements SqlDatabase {
     }
 
     @Override
+    public ResultSet executeQuery(boolean async, @NonNull String sql, Object... objects) {
+        return handle(async, () -> {
+            try (SqlStatement statement = new SqlStatement(getConnection(), sql, objects)) {
+                return statement.executeQuery();
+            }
+        });
+    }
+
+    @Override
     public int execute(boolean async, @NonNull String sql, Object... objects) {
         return handle(async, () -> {
             try (SqlStatement statement = new SqlStatement(getConnection(), sql, objects)) {
                 return statement.execute();
             }
         });
+    }
+
+    @Override
+    public <V> V handle(boolean async, Callable<V> callable) {
+        return handle(async, callable);
     }
 
     @Override
