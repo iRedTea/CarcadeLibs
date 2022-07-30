@@ -2,11 +2,11 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("java")
-    id("maven-publish")// тут указываем айди проекта шедоу
+    id("maven-publish")
 }
 
 group = 'me.redtea'
-version = '1.0.0'
+version = '1.0.2'
 
 repositories {
     mavenCentral()
@@ -18,12 +18,14 @@ repositories {
 
 dependencies {
     compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
-
     implementation 'com.google.inject:guice:5.1.0'
     implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     implementation 'me.mattstudios.utils:matt-framework:1.4.6'
     implementation 'dev.triumphteam:triumph-gui:3.1.2'
+    implementation group: 'com.github.cryptomorin', name: 'XSeries', version: '8.6.1'
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 }
 
 
@@ -46,7 +48,8 @@ publishing {
             from components.java
             groupId = 'com.github.itzRedTea'
             artifactId = 'me.redtea.carcadelibs'
-            version = '1.0.0'
+            version = this.version
+
         }
     }
 }
@@ -64,5 +67,19 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+shadowJar {
+    //Storage based relocations
+    relocate("com.google.inject", "${project.group}.libs.inject")
+    relocate("org.projectlombok:lombok:1.18.24", "${project.group}.libs.lombok")
+    relocate("me.mattstudios.utils", "${project.group}.libs.commands")
+    relocate("dev.triumphteam.gui", "${project.group}.libs.gui")
+    relocate("com.github.cryptomorin", "${project.group}.libs.xseries")
+    relocate("org.xerial:sqlite-jdbc:3.36.0.3", "${project.group}.libs.sqlite")
+    relocate("mysql", "${project.group}.libs.mysql")
+}
+artifacts {
+    archives(shadowJar)
 }
 
