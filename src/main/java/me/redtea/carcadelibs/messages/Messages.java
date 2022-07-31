@@ -19,6 +19,10 @@ public class Messages {
     private @Setter Message nullableMessage;
 
     public Messages(ConfigurationSection section) {
+        init(section);
+    }
+    
+    public void init(ConfigurationSection section) {
         this.prefix = section.getString("prefix");
         //TODO CHECK THIS
         val data = fromConfigurationToMap(this, section);
