@@ -3,7 +3,7 @@ package me.redtea.carcadelibs.messages;
 import lombok.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import me.redtea.ultimatereiatsu.messages.impl.*;
+import me.redtea.carcadelibs.messages.impl.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +67,6 @@ public class Messages {
     public boolean hasPermission(@NonNull CommandSender sender, @NonNull String permission) {
         if (!sender.hasPermission(permission)) {
             get("no-permission").sendMessage(sender);
-
             return false;
         }
         return true;

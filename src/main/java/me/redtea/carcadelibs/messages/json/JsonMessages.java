@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 import static com.cryptomorin.xseries.ReflectionUtils.supports;
-import static me.redtea.ultimatereiatsu.util.StringUtil.color;
+import static me.mattstudios.mf.base.components.MfUtil.color;
 
 @RequiredArgsConstructor(staticName = "create")
 public class JsonMessages {

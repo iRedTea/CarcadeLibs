@@ -2,6 +2,7 @@ package me.redtea.carcadelibs.util;
 
 import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,6 +14,12 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class StringUtil {
+    @Getter
+    private static StringUtil instance;
+
+    public StringUtil() {
+        instance = this;
+    }
 
     private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.0");
 

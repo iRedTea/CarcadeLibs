@@ -2,9 +2,9 @@ package me.redtea.carcadelibs.messages.impl;
 
 import lombok.NonNull;
 import lombok.val;
-import me.redtea.ultimatereiatsu.messages.Message;
-import me.redtea.ultimatereiatsu.messages.Messages;
-import me.redtea.ultimatereiatsu.util.StringUtil;
+import me.redtea.carcadelibs.messages.Message;
+import me.redtea.carcadelibs.messages.Messages;
+import me.redtea.carcadelibs.util.StringUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class PrimitiveMessage extends Message {
+    private StringUtil stringUtil = StringUtil.getInstance();
 
     private final @NonNull String value;
 
@@ -42,15 +43,15 @@ public class PrimitiveMessage extends Message {
         val value = apply.apply(this.value);
 
         if (prefix != null && enablePrefix) {
-            StringUtil.sendMessage(sender, prefix, value);
+            stringUtil.sendMessage(sender, prefix, value);
         } else {
-            StringUtil.sendMessage(sender, value);
+            stringUtil.sendMessage(sender, value);
         }
     }
 
     @Override
     public String toString() {
-        return StringUtil.color(this.value);
+        return stringUtil.color(this.value);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.redtea.carcadelibs.messages.impl;
 
 import lombok.NonNull;
-import me.redtea.ultimatereiatsu.messages.Message;
+import me.redtea.carcadelibs.messages.Message;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
