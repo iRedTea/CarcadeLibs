@@ -57,11 +57,6 @@ public abstract class SqliteDatabase implements SqlDatabase {
     }
 
     @Override
-    public <V> V handle(boolean async, Callable<V> callable) {
-        return handle(async, callable);
-    }
-
-    @Override
     public Connection getConnection() {
         try {
             return this.refreshConnection();
