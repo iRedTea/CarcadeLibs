@@ -14,14 +14,13 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class StringUtil {
-    @Getter
     private static StringUtil instance;
+
+    private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.0");
 
     public StringUtil() {
         instance = this;
     }
-
-    private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.0");
 
     public String color(final String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
@@ -68,5 +67,11 @@ public class StringUtil {
                 sender.sendMessage(color((prefix != null ? prefix : "") + line));
             }
         }
+    }
+
+    public static StringUtil getInstance() {
+        if(instance == null) {
+            return new StringUtil();
+        } else return instance;
     }
 }

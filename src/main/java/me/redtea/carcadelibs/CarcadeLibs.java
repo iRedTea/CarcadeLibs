@@ -7,7 +7,6 @@ public final class CarcadeLibs extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        new StringUtil();
     }
 
     @Override
