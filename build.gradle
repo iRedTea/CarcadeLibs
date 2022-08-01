@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'me.redtea'
-version = '1.1.3'
+version = '1.1.4'
 
 repositories {
     mavenCentral()
@@ -78,13 +78,11 @@ processResources {
 
 shadowJar {
     //Storage based relocations
-    relocate("com.google.inject", "${project.group}.libs.inject")
-    relocate("org.projectlombok:lombok:1.18.24", "${project.group}.libs.lombok")
-    relocate("me.mattstudios.utils", "${project.group}.libs.commands")
-    relocate("dev.triumphteam.gui", "${project.group}.libs.gui")
-    relocate("com.github.cryptomorin", "${project.group}.libs.xseries")
-    relocate("org.xerial:sqlite-jdbc:3.36.0.3", "${project.group}.libs.sqlite")
-    relocate("mysql", "${project.group}.libs.mysql")
+    relocate("com.google.inject", "com.google.inject")
+    relocate("org.projectlombok:lombok:1.18.24", "org.projectlombok")
+    relocate("me.mattstudios.utils", "me.mattstudios.utils")
+    relocate("dev.triumphteam.gui", "dev.triumphteam.gui")
+    relocate("com.github.cryptomorin", "com.github.cryptomorin")
 }
 artifacts {
     archives(shadowJar)
