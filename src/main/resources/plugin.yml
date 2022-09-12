@@ -2,3 +2,4 @@ name: CarcadeLibs
 version: '1.0.1'
 main: me.redtea.carcadelibs.CarcadeLibs
 api-version: 1.13
+softdepend: [PlaceholderAPI]

@@ -3,6 +3,8 @@ package me.redtea.carcadelibs.util;
 import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,11 +16,14 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class StringUtil {
+    private final boolean isPapiEnabled;
+
     private static StringUtil instance;
 
     private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.0");
 
-    public StringUtil() {
+    public StringUtil(boolean isPapiEnabled) {
+        this.isPapiEnabled = isPapiEnabled;
         instance = this;
     }
 
@@ -71,7 +76,7 @@ public class StringUtil {
 
     public static StringUtil getInstance() {
         if(instance == null) {
-            return new StringUtil();
+            return new StringUtil(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"));
         } else return instance;
     }
 }
